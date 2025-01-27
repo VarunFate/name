@@ -1,0 +1,122 @@
+Developer Machine
+	sudo apt update
+	sudo apt install git
+	cd
+	mkdir demo && cd demo
+	git init
+	git config --global init.defaultBranch master
+	git config --global user.name "VarunFate"
+	git config --global user.email "varunfate777@gmail.com"
+	ssh-keygen
+	cat ~/.ssh/rsa.pub # check this location 
+	
+# copy above public key
+# in git create new repo -> setting -> deploy key -> developer -> paste public key in large text area -> add key
+# goto code copy 'ssh' link
+	
+Developer Machine
+	cd demo
+	git remote add origin paste/ssh/link/here
+	nano index.html
+		something written here
+	git add .
+	git commit -m "First commit"
+	git push origin master
+	
+# refrest <code> section of your repo
+# first commit should be here
+
+WebServer
+	sudo apt update 
+	sudo apt install git apache2 -y
+	cd /var/www/html
+	
+# on browser check ip/of/webserver -> it should show default page of apache2
+
+WebServer
+	cd /var/www/html
+	sudo rm index.html
+	cd ..
+	sudo chmod 777 html
+	cd html
+	git init
+	git config --global init.defaultBranch master
+	git config --global user.name "VarunFate"
+	git config --global user.email "varunfate777@gmail.com"
+	cat ~/.ssh/rsa.pub # check this location 
+	
+# copy above public key
+# in git create new repo -> setting -> deploy key -> webserver -> paste public key in large text area -> add key
+# goto code copy 'ssh' link
+
+WebServer
+	cd /var/www/html
+	git remote add origin paste/ssh/link/here
+	git pull origin master
+
+# on browser ip/of/webserver -> it should show what developer is writing in index.html
+
+# After creating Jenkins Instance
+# in home page of your instance -> scroll down to security -> click on link below security groups
+# edit inbound rules -> add rule -> custom tcp -> 8080 -> 0.0.0.0/0 -> save rules
+
+Jenkins
+	sudo apt update 
+	nano jenkins.sh
+		sudo apt update
+		sudo apt install fontconfig openjdk-17-jre
+		sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+		  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+		echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+		  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+		  /etc/apt/sources.list.d/jenkins.list > /dev/null		
+		sudo apt-get update
+		sudo apt-get install jenkins git
+		sudo systemctl enable jenkins
+		sudo systemctl start jenkins
+		sudo systemctl status jenkins
+	sudo chmod 777 jenkins.sh
+	./jenkins.sh
+	
+# in Git Repo on your a/c -> setting -> add webhooks -> [ip/of/jenkins/machine]:8080/github-webhook/ -> select json -> add webhook/
+# refresh the page -> a tickmark in green color should appear where you see your webhook/
+
+# on broseser [ip/of/jenkins/machine]:8080 -> a page should appear in front of you
+# there is some path given here copy that 
+
+Jenkins machine
+	sudo cat path/copied/from/browser
+	# copy the password
+	
+# on browser paste it where you opened jenkins:8080
+# add following things 
+{
+	Username: Administrator
+	Pass: Admin@123
+	Full name: Admin Admin
+	Email: varunfate777@gmail.com
+	→save and continue
+	→save and finish
+	→start using jenkins
+}
+
+{
+	On Dashboard
+	New Item → left side
+	Enter an item name → freestyle project
+	Add description 
+	Check on Github → on github → <> code → copy .git extension link and paste it on jenkins
+	Soruce code management → on github → <> code → copy .git extension link and paste it on jenkins
+	# select git whereever you see git 
+	execute shell
+		# add some commands here
+		whoami
+		pwd
+		ls -l
+}
+
+{
+	Dashboard -> you will see your created item here on its right side there is run button for building 
+	click the run button 
+	you can see build history
+}
